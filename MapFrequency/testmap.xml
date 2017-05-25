@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<map>
+
+  <node id="1" type="normal">
+    <edge dir="U"> 2 </edge>
+    <edge dir="U"> 3 </edge>
+  </node>
+
+  <node id="1" type="normal">
+    <edge dir="U"> 2 </edge>
+  </node>
+
+</map>
