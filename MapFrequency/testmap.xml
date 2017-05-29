@@ -7,8 +7,8 @@
     <edge dir="U"> 3 </edge>
   </node>
 
-  <node id="1" type="normal">
-    <edge dir="U"> 2 </edge>
+  <node id="2" type="normal">
+    <edge dir="U"> 3 </edge>
   </node>
 
 </map>
