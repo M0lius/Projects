@@ -24,7 +24,7 @@ The original purpose of this application is to create board prototypes for futur
 
 #
 ### Objective List
-> ~~completed~~ / TODO
+... > ~~completed~~ / TODO
 
 + ~~Read json files~~
 + ~~Draw board spaces~~
