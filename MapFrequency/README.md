@@ -14,9 +14,9 @@ The original purpose of this application is to create board prototypes for futur
 
 ### Current Functions
 
-Left-Click -> Add Space
-Right-Click -> Delete Space
-Left-Click Key Item -> Becomes New Space To be Added
+- Left-Click -> Add Space
+- Right-Click -> Delete Space
+- Left-Click Key Item -> Becomes New Space To be Added
 ***[MORE TO COME]***
 
 
