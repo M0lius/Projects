@@ -32,7 +32,7 @@ The original purpose of this application is to create board prototypes for futur
 + Draw directional edges
 + ~~Add key of spaces~~
 + ~~Create OS Boardeditor.app~~
-+ Create Windows Boardeditor.exe
++ ~~Create Windows Boardeditor.exe~~
 + Create Special Spaces
 + Add Frequency MetaData
 + Add offset to space location for more unique boards
