@@ -1,0 +1,443 @@
+{
+  "name": "investopia_prototype",
+  "width": "12",
+  "height": "10",
+  "start": "",
+  "edit": "true",
+  "nodes": [
+    {
+      "index": 1,
+      "x": 5,
+      "y": 2,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 4,
+      "x": 5,
+      "y": 5,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 6,
+      "x": 5,
+      "y": 7,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 13,
+      "x": 6,
+      "y": 2,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 14,
+      "x": 6,
+      "y": 3,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 17,
+      "x": 6,
+      "y": 7,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 18,
+      "x": 6,
+      "y": 4,
+      "type": "R",
+      "edges": []
+    },
+    {
+      "index": 19,
+      "x": 6,
+      "y": 6,
+      "type": "G",
+      "edges": []
+    },
+    {
+      "index": 20,
+      "x": 5,
+      "y": 3,
+      "type": "G",
+      "edges": []
+    },
+    {
+      "index": 21,
+      "x": 5,
+      "y": 6,
+      "type": "R",
+      "edges": []
+    },
+    {
+      "index": 25,
+      "x": 1,
+      "y": 2,
+      "type": "R",
+      "edges": []
+    },
+    {
+      "index": 26,
+      "x": 1,
+      "y": 1,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 27,
+      "x": 2,
+      "y": 0,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 28,
+      "x": 1,
+      "y": 0,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 29,
+      "x": 4,
+      "y": 0,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 30,
+      "x": 5,
+      "y": 0,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 31,
+      "x": 3,
+      "y": 0,
+      "type": "R",
+      "edges": []
+    },
+    {
+      "index": 32,
+      "x": 6,
+      "y": 0,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 33,
+      "x": 7,
+      "y": 0,
+      "type": "G",
+      "edges": []
+    },
+    {
+      "index": 34,
+      "x": 8,
+      "y": 0,
+      "type": "G",
+      "edges": []
+    },
+    {
+      "index": 35,
+      "x": 9,
+      "y": 0,
+      "type": "G",
+      "edges": []
+    },
+    {
+      "index": 36,
+      "x": 10,
+      "y": 0,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 37,
+      "x": 10,
+      "y": 1,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 38,
+      "x": 10,
+      "y": 2,
+      "type": "R",
+      "edges": []
+    },
+    {
+      "index": 39,
+      "x": 10,
+      "y": 3,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 40,
+      "x": 10,
+      "y": 4,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 41,
+      "x": 10,
+      "y": 5,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 42,
+      "x": 10,
+      "y": 6,
+      "type": "R",
+      "edges": []
+    },
+    {
+      "index": 43,
+      "x": 10,
+      "y": 7,
+      "type": "G",
+      "edges": []
+    },
+    {
+      "index": 44,
+      "x": 10,
+      "y": 8,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 45,
+      "x": 10,
+      "y": 9,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 46,
+      "x": 9,
+      "y": 9,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 47,
+      "x": 8,
+      "y": 9,
+      "type": "R",
+      "edges": []
+    },
+    {
+      "index": 48,
+      "x": 7,
+      "y": 9,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 49,
+      "x": 6,
+      "y": 9,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 51,
+      "x": 4,
+      "y": 9,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 52,
+      "x": 5,
+      "y": 8,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 53,
+      "x": 5,
+      "y": 9,
+      "type": "R",
+      "edges": []
+    },
+    {
+      "index": 54,
+      "x": 3,
+      "y": 9,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 55,
+      "x": 2,
+      "y": 9,
+      "type": "R",
+      "edges": []
+    },
+    {
+      "index": 56,
+      "x": 1,
+      "y": 9,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 57,
+      "x": 1,
+      "y": 8,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 58,
+      "x": 1,
+      "y": 7,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 60,
+      "x": 1,
+      "y": 5,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 61,
+      "x": 1,
+      "y": 4,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 62,
+      "x": 1,
+      "y": 6,
+      "type": "R",
+      "edges": []
+    },
+    {
+      "index": 63,
+      "x": 1,
+      "y": 3,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 65,
+      "x": 6,
+      "y": 8,
+      "type": "R",
+      "edges": []
+    },
+    {
+      "index": 67,
+      "x": 6,
+      "y": 1,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 68,
+      "x": 5,
+      "y": 1,
+      "type": "R",
+      "edges": []
+    },
+    {
+      "index": 69,
+      "x": 7,
+      "y": 3,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 70,
+      "x": 8,
+      "y": 3,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 71,
+      "x": 9,
+      "y": 3,
+      "type": "R",
+      "edges": []
+    },
+    {
+      "index": 72,
+      "x": 4,
+      "y": 3,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 73,
+      "x": 3,
+      "y": 3,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 74,
+      "x": 2,
+      "y": 3,
+      "type": "R",
+      "edges": []
+    },
+    {
+      "index": 75,
+      "x": 7,
+      "y": 6,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 76,
+      "x": 8,
+      "y": 6,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 77,
+      "x": 9,
+      "y": 6,
+      "type": "R",
+      "edges": []
+    },
+    {
+      "index": 78,
+      "x": 4,
+      "y": 6,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 79,
+      "x": 3,
+      "y": 6,
+      "type": "B",
+      "edges": []
+    },
+    {
+      "index": 80,
+      "x": 2,
+      "y": 6,
+      "type": "R",
+      "edges": []
+    }
+  ]
+}
