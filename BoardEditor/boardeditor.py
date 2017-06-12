@@ -2,6 +2,8 @@ import sys
 import math
 import json
 
+from collections import deque
+
 # Import a library of functions called 'pygame'
 import pygame
 size = 40;
@@ -16,6 +18,7 @@ GREEN = (0, 255, 0)
 BLUE = (0,0,255)
 RED = (255, 0, 0)
 BROWN = (160,82,45)
+YELLOW = (225,225,25)
 
 # Define EVENTS
 LEFT = 1
@@ -32,31 +35,83 @@ def drawRoad(screen,x,y,xP,yP):
      [x, y], [xP, yP], 1);
     return;
 
+def clean(new_size, map):
+# CLEAN the file
+    queue = deque([])
+    last = -1 #largest value Used after cleAN UP
+
+    for k in range(new_size + 1):
+        value_exists = False
+
+        #Check if node index is being used
+        for node in map["nodes"]:
+            if node["index"] == str(k) or node["index"] == k:
+                value_exists = True
+                break
+
+        #Append to the list of values not ues if it does not exist
+        if not value_exists:
+            queue.append(k)
+
+        #Once you find one that exists after one that doesnt
+        if value_exists and queue:
+            #REPLACE it with the smallest number in queue
+            queue.append(k) #Append what will be replaced
+            replacement = queue.popleft()
+            last = replacement
+            for node in map["nodes"]:
+                for edge in node["edges"]:
+                    if edge == str(k) or edge == k:
+                        node["edges"].remove(edge)
+                        node["edges"].append(str(replacement))
+                        break
+
+                if node["index"] == str(k) or node["index"] == k:
+                    node["index"] = str(replacement)
+
+        elif value_exists:
+            last = k
+
+    map["len"] = str(last + 1)
+
+    return last + 1
+
 def main():
 
     #Check Arguments
+    space_type = "B"
+    touched = None
+
+    draw_mode = False
+    edit_mode = False
+
     if len(sys.argv)==2:
-        map = json.loads(open(sys.argv[1]).read());
-        draw_mode = False
+        file = open(sys.argv[1])
+        map = json.loads(file.read())
+        file.close()
+
 
         if map["edit"] == "true":
             draw_mode = True
+            edit_mode = True
 
         print ("NAME : " + map["name"]);
 
     else:
         draw_mode = True
-        space_type = "B"
         map = { "name" : "prototype",
+                "edit" : "true",
+                "start" : "",
                 "width" : "12",
                 "height" : "10",
-                "start" : "",
-                "edit" : "true",
+                "len" : "0",
                 "nodes" : []
                 }
         #map["nodes"].append({"index":"0", "x":"17", "y":"14","type":"B", "edges":[] "\n"})
 
     # Initialize the game engine
+    SIZE = int(map["len"])
+    start = False if map["start"] == "" else True
         #map width and height
     width = int(map["width"]);
     height = int(map["height"]);
@@ -83,7 +138,6 @@ def main():
         #bottom and right most part of the main map
     bottom = size*(height + 2)
     right = size*(width + 2)
-    i = 0
     done = False;
     while not done:
         # --- Main event loop
@@ -91,7 +145,8 @@ def main():
             if event.type == pygame.QUIT:
                 done = True
 
-            # DRAWS SPACES
+            # DRAW
+            # ---NEW SPACES
             elif event.type == pygame.MOUSEBUTTONDOWN and draw_mode:
                 x,y = event.pos
                 x = math.floor(x/size) - 1
@@ -113,20 +168,57 @@ def main():
                     for node in map["nodes"]:
                         if node["x"]==x and node["y"]==y:
                             exists = True
+
+                            #--- DRAW NEW EDGES
+                            if touched == None:
+                                touched = l
+
+                            else:
+                                edge_exists = False
+
+                                for edge in map["nodes"][touched]["edges"]:
+                                    if edge == str(l):
+                                        edge_exists = True
+                                        break
+
+                                if not edge_exists and l != touched:
+                                    map["nodes"][touched]["edges"].append(str(l))
+
+                                if edge_exists:
+                                    map["nodes"][touched]["edges"].remove(str(l))
+
+                                touched = None
+
                             break
+
                         l += 1
 
+                    if not exists:
+                        touched = None
+
                     if not exists and event.button == LEFT:
-                        map["nodes"].append({"index":i, "x":x, "y":y,"type":space_type, "edges":[]})
-                        i += 1
+                        map["nodes"].append({"index": str(SIZE), "x":x, "y":y,"type":space_type, "edges":[]})
+                        SIZE += 1
                         print ("Added node at (%d, %d)" % (x,y))
 
                     if exists and event.button == RIGHT:
+
+                        #DELETE EDGES OF NODE
+                        node_index = map["nodes"][l]["index"]
+                        for node in map["nodes"]:
+                            for edge in node["edges"]:
+                                if edge == node_index:
+                                    node["edges"].remove(edge)
+                                    break;
+
+                        #delete node
                         map["nodes"].pop(l)
+                        touched = None
+
                         print ("Deleted node at (%d, %d)" % (x,y))
 
         # --- Game logic should go here
-
+        SIZE = clean(SIZE, map)
 
         # --- Screen-clearing code goes here
 
@@ -162,12 +254,16 @@ def main():
             y = int(node["y"]) + 1;
 
             #START edge
-            if node["index"] == "0":
+            if node["index"] == "0" and start == True :
                 drawRoad(screen,offSet(x*size),offSet(y*size),
                     offSet(size*(width)),offSet(size*(height)));
 
             #EDGES in NODE
             for edge in node["edges"]:
+                if int(edge) >= len(map["nodes"]):
+                    print (edge)
+                    print (node["index"])
+
                 nodeP = map["nodes"][int(edge)];
                 xP = int(nodeP["x"]) + 1;
                 yP = int(nodeP["y"]) + 1;
@@ -175,6 +271,7 @@ def main():
                     offSet(xP*size),offSet(yP*size));
 
             #DRAW NODES NOW
+            l = 0
         for node in map["nodes"]:
             x = int(node["x"]) + 1;
             y = int(node["y"]) + 1;
@@ -187,6 +284,12 @@ def main():
 
             pygame.draw.circle(screen, COLOR, (offSet(size*x), offSet(size*y)),
             math.ceil(size/3), 0);
+
+            if touched == l:
+                pygame.draw.circle(screen, YELLOW, (offSet(size*x), offSet(size*y)),
+                math.ceil(size/3) + math.ceil(size/15), math.ceil(size/15));
+
+            l += 1
 
         #DRAW OBJECTS
             #---START
@@ -214,14 +317,23 @@ def main():
                 #---BLUE SPACE
             pygame.draw.circle(screen, BLUE, (offSet(right), offSet(size)),
             math.ceil(size/3), 0);
-
-                #---RED SPACE
-            pygame.draw.circle(screen, GREEN, (offSet(right + size), offSet(size)),
-            math.ceil(size/3), 0);
+            if space_type == "B":
+                pygame.draw.circle(screen, YELLOW, (offSet(right), offSet(size)),
+                math.ceil(size/3) + math.ceil(size/15), math.ceil(size/15));
 
                 #---GREEN SPACE
+            pygame.draw.circle(screen, GREEN, (offSet(right + size), offSet(size)),
+            math.ceil(size/3), 0);
+            if space_type == "G":
+                pygame.draw.circle(screen, YELLOW, (offSet(right + size), offSet(size)),
+                math.ceil(size/3) + math.ceil(size/15), math.ceil(size/15));
+
+                #---RED SPACE
             pygame.draw.circle(screen, RED, (offSet(right + 2*size), offSet(size)),
             math.ceil(size/3), 0);
+            if space_type == "R":
+                pygame.draw.circle(screen, YELLOW, (offSet(right + 2*size), offSet(size)),
+                math.ceil(size/3) + math.ceil(size/15), math.ceil(size/15));
 
         # --- Go ahead and update the screen with what we've drawn.
         pygame.display.flip()
@@ -233,12 +345,17 @@ def main():
     pygame.quit()
 
     # Create New JSON if draw_mode on
-    if draw_mode :
-        with open('prototype.json', 'w') as fp:
+    clean(SIZE, map)
+    JSON = 'prototype.json' if not edit_mode else sys.argv[1]
+
+    if draw_mode:
+        with open(JSON, 'w') as fp:
             json.dump(map, fp, indent=2)
+
 
     #FINISHED INFO
     print("\n FINISHED! \n");
+
 
 if __name__ == "__main__":
     main()
