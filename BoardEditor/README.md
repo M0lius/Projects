@@ -11,14 +11,17 @@ The original purpose of this application is to create board prototypes for futur
 #
 ### How To SetUp
 
-1. Download Boardeditor.app for mac or Boardeditor.exe for windows (*linux support will be added later*)
+1. Download Boardeditor.app folder for mac or Boardeditor.exe folder for windows (*linux support will be added later*)
 2. Open Application to create a blank map of size (*currently preset*) named *prototype.json* or drag a json file to the application to continue editing a previously made map.
 
 #
 ### Current Functions
 
-- Left-Click -> Add Space
-- Right-Click -> Delete Space
+- Left-Click Empty Space -> Add Space
+- Left-Click Space -> Highlight Space
+- Left-Click Highlighted Space -> remove highlight
+- Left-Click Another Space (with one already highlighted) -> Add Edge
+- Right-Click -> Delete Space (and edges connected to Space)
 - Left-Click Key Item -> Becomes New Space To be Added
 - ***[MORE TO COME]***
 
@@ -34,9 +37,9 @@ The original purpose of this application is to create board prototypes for futur
 + ~~Create OS Boardeditor.app~~
 + ~~Create Windows Boardeditor.exe~~
 + Create Special Spaces
-+ Add Frequency MetaData
 + Add offset to space location for more unique boards
 + ~~Add delete space with right click function~~
-+ Add delete edge function
-+ Add function to clean json code (remove missing indexes)
++ ~~Add delete edge function~~
++ ~~Add function to clean json code (remove missing indexes)~~
++ Add Frequency MetaData
 + Come Up With More Objectives
