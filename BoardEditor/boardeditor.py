@@ -7,6 +7,7 @@ from collections import deque
 # Import a library of functions called 'pygame'
 import pygame
 size = 40;
+step = math.floor(size/10);
 key_size_x = 3
 key_size_y = 3
 
@@ -24,6 +25,7 @@ YELLOW = (225,225,25)
 LEFT = 1
 RIGHT = 3
 
+
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
 
@@ -32,7 +34,9 @@ def offSet(a):
 
 def drawRoad(screen,x,y,xP,yP):
     pygame.draw.line(screen, BLACK,
-     [x, y], [xP, yP], 1);
+     [x, y], [xP, yP], 1)
+    #pygame.draw.circle(screen, BLACK, (offSet(xP) , yP),
+    #math.ceil(size/8), 0)
     return;
 
 def clean(new_size, map):
@@ -75,6 +79,11 @@ def clean(new_size, map):
     map["len"] = str(last + 1)
 
     return last + 1
+
+def addSteps(map):
+    for node in map["nodes"]:
+        node["x-steps"] = "0"
+        node["y-steps"] = "0"
 
 def main():
 
@@ -145,6 +154,22 @@ def main():
             if event.type == pygame.QUIT:
                 done = True
 
+            elif event.type == pygame.KEYDOWN and touched != None:
+                xSteps = int(map["nodes"][touched]["x-steps"])
+                ySteps = int(map["nodes"][touched]["y-steps"])
+
+                if event.key == pygame.K_LEFT:
+                    xSteps = xSteps - 1 if xSteps != -5 else -5
+                elif event.key == pygame.K_RIGHT:
+                    xSteps = xSteps + 1 if xSteps != 5 else 5
+                elif event.key == pygame.K_UP:
+                    ySteps = ySteps - 1 if ySteps != -5 else -5
+                elif event.key == pygame.K_DOWN:
+                    ySteps = ySteps + 1 if ySteps!= 5 else 5
+
+                map["nodes"][touched]["x-steps"] = str(xSteps)
+                map["nodes"][touched]["y-steps"] = str(ySteps)
+
             # DRAW
             # ---NEW SPACES
             elif event.type == pygame.MOUSEBUTTONDOWN and draw_mode:
@@ -197,7 +222,8 @@ def main():
                         touched = None
 
                     if not exists and event.button == LEFT:
-                        map["nodes"].append({"index": str(SIZE), "x":x, "y":y,"type":space_type, "edges":[]})
+                        map["nodes"].append({"index": str(SIZE), "x":x, "y":y,
+                        "x-steps": "0","y-steps": "0", "type":space_type, "edges":[]})
                         SIZE += 1
                         print ("Added node at (%d, %d)" % (x,y))
 
@@ -252,10 +278,12 @@ def main():
         for node in map["nodes"]:
             x = int(node["x"]) + 1;
             y = int(node["y"]) + 1;
+            xOff = int(node["x-steps"])*step
+            yOff = int(node["y-steps"])*step
 
             #START edge
             if node["index"] == "0" and start == True :
-                drawRoad(screen,offSet(x*size),offSet(y*size),
+                drawRoad(screen,offSet(x*size) + xOff,offSet(y*size) + yOff,
                     offSet(size*(width)),offSet(size*(height)));
 
             #EDGES in NODE
@@ -267,14 +295,20 @@ def main():
                 nodeP = map["nodes"][int(edge)];
                 xP = int(nodeP["x"]) + 1;
                 yP = int(nodeP["y"]) + 1;
-                drawRoad(screen,offSet(x*size),offSet(y*size),
-                    offSet(xP*size),offSet(yP*size));
+                xPOff = int(nodeP["x-steps"])*step
+                yPOff = int(nodeP["y-steps"])*step
+
+
+                drawRoad(screen,offSet(x*size)+xOff,offSet(y*size)+yOff,
+                    offSet(xP*size)+xPOff,offSet(yP*size)+yPOff);
 
             #DRAW NODES NOW
             l = 0
         for node in map["nodes"]:
             x = int(node["x"]) + 1;
             y = int(node["y"]) + 1;
+            xOff = int(node["x-steps"])*step
+            yOff = int(node["y-steps"])*step
             COLOR = RED;
 
             if(node["type"] == "B"):
@@ -282,23 +316,23 @@ def main():
             elif(node["type"] == "G"):
                 COLOR = GREEN;
 
-            pygame.draw.circle(screen, COLOR, (offSet(size*x), offSet(size*y)),
+            pygame.draw.circle(screen, COLOR, (offSet(size*x)+xOff, offSet(size*y)+yOff),
             math.ceil(size/3), 0);
 
             if touched == l:
-                pygame.draw.circle(screen, YELLOW, (offSet(size*x), offSet(size*y)),
+                pygame.draw.circle(screen, YELLOW, (offSet(size*x)+xOff, offSet(size*y)+yOff),
                 math.ceil(size/3) + math.ceil(size/15), math.ceil(size/15));
 
             l += 1
 
-        #DRAW OBJECTS
+            #DRAW OBJECTS
             #---START
         if map["start"] == "BL" :
             pygame.draw.rect(screen,BROWN,
             (offSet(size*(width - 1)), offSet(size*(height - 1)),size*2,size*2))
 
 
-            #DRAW KEY
+            #---DRAW KEY
         if draw_mode:
             screen.blit(myfont.render("KEY", False, BLACK),
             (size*math.floor(key_size_x/2) + right, math.ceil(size/2)))
@@ -314,21 +348,21 @@ def main():
                 pygame.draw.line(screen, GREY , [right, pos], [key_right,pos], 1)
 
             #KEY SPACES
-                #---BLUE SPACE
+            #---BLUE SPACE
             pygame.draw.circle(screen, BLUE, (offSet(right), offSet(size)),
             math.ceil(size/3), 0);
             if space_type == "B":
                 pygame.draw.circle(screen, YELLOW, (offSet(right), offSet(size)),
                 math.ceil(size/3) + math.ceil(size/15), math.ceil(size/15));
 
-                #---GREEN SPACE
+            #---GREEN SPACE
             pygame.draw.circle(screen, GREEN, (offSet(right + size), offSet(size)),
             math.ceil(size/3), 0);
             if space_type == "G":
                 pygame.draw.circle(screen, YELLOW, (offSet(right + size), offSet(size)),
                 math.ceil(size/3) + math.ceil(size/15), math.ceil(size/15));
 
-                #---RED SPACE
+            #---RED SPACE
             pygame.draw.circle(screen, RED, (offSet(right + 2*size), offSet(size)),
             math.ceil(size/3), 0);
             if space_type == "R":
@@ -346,6 +380,8 @@ def main():
 
     # Create New JSON if draw_mode on
     clean(SIZE, map)
+    #addSteps(map)
+
     JSON = 'prototype.json' if not edit_mode else sys.argv[1]
 
     if draw_mode:
