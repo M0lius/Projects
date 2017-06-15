@@ -23,6 +23,7 @@ The original purpose of this application is to create board prototypes for futur
 - Left-Click Another Space (with one already highlighted) -> Add Edge
 - Right-Click -> Delete Space (and edges connected to Space)
 - Left-Click Key Item -> Becomes New Space To be Added
+- ArrowKey on Highlighted Space -> offsets the space in that direction
 - ***[MORE TO COME]***
 
 #
@@ -37,7 +38,7 @@ The original purpose of this application is to create board prototypes for futur
 + ~~Create OS Boardeditor.app~~
 + ~~Create Windows Boardeditor.exe~~
 + Create Special Spaces
-+ Add offset to space location for more unique boards
++ ~~Add offset to space location for more unique boards~~
 + ~~Add delete space with right click function~~
 + ~~Add delete edge function~~
 + ~~Add function to clean json code (remove missing indexes)~~
